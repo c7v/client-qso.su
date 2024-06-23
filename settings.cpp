@@ -1,5 +1,6 @@
 #include "settings.h"
 #include "ui_settings.h"
+#include "cat.h"
 #include <QDebug>
 
 Settings::Settings(QWidget *parent) :
@@ -44,6 +45,12 @@ void Settings::read() {
 }
 
 void Settings::display() {
+    QList<QPair<int, QString>> rigs = Cat::getAvailableRigs();
+
+    for(int i = 0; i < rigs.length(); i++) {
+        QPair<int, QString> rigPair = rigs.at(i);
+        ui->rigList->addItem(rigPair.second, rigPair.first);
+    }
     ui->accessToken->setText(accessToken);
     ui->udpServerEnableCheckbox->setChecked(udpServerEnable);
     ui->udpServerPort->setValue(udpServerPort);

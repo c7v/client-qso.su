@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     apiclient.cpp \
+    cat.cpp \
     main.cpp \
     mainwindow.cpp \
     settings.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
 
 HEADERS += \
     apiclient.h \
+    cat.h \
     mainwindow.h \
     settings.h \
     udpreceiver.h
@@ -29,3 +31,5 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+LIBS += -lhamlib
