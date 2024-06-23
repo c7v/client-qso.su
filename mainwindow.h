@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QProcess>
 #include "settings.h"
 #include "udpreceiver.h"
 
@@ -25,5 +26,8 @@ private:
     UdpReceiver *udpReceiver;
 
     void initUI();
+
+private slots:
+    void onSettingsSaved();
 };
 #endif // MAINWINDOW_H

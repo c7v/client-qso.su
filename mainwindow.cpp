@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("QSO.su desktop app");
 
     settings = new Settings(this);
+    connect(settings, &Settings::saved, this, &MainWindow::onSettingsSaved);
+
     udpReceiver = new UdpReceiver(this);
     if (settings->udpServerEnable) {
         if (udpReceiver->start(settings->udpServerPort)) {
@@ -31,5 +33,15 @@ MainWindow::~MainWindow() {
 
 void MainWindow::initUI() {
     connect(ui->actionSettings, &QAction::triggered, settings, &Settings::show);
+}
+
+void MainWindow::onSettingsSaved() {
+    QMessageBox::StandardButton confirm;
+    confirm = QMessageBox::question(this, "Сохранение настроек", "Для применения настроек необходим перезапуск программы. Выполнить?", QMessageBox::Yes|QMessageBox::No);
+
+    if (confirm == QMessageBox::Yes) {
+        qApp->quit();
+        QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+    }
 }
 
